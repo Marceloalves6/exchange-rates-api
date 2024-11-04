@@ -1,17 +1,24 @@
-using ExchangeRates.Core.Handlers;
+using ExchangeRates.Api.Application.Filters;
+using ExchangeRates.Api.Application.Middlewares;
+using ExchangeRates.Core;
 using ExchangeRates.Infra;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");
 
-builder.Services.AddControllers();
+// Add services to the container.
+builder.Services.AddControllers(options=>
+{
+    options.Filters.Add<HttpExceptionHandlerFilter>();
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(GetExchangeRateHandler));
-builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(GetExchangeRateHandler).Assembly));
+builder.Services.AddAutoMapper(typeof(ExchangeRates.Core.Startup));
+builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(ExchangeRates.Core.Startup).Assembly));
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddDbContext<ExchangeRatesDbContext>(options =>
 {
     if (useInMemoryDatabase)
@@ -25,6 +32,7 @@ builder.Services.AddDbContext<ExchangeRatesDbContext>(options =>
 });
 
 builder.Services.AddInfraDependencies();
+builder.Services.AddCoreDependencies();
 
 if (!useInMemoryDatabase)
 {
@@ -41,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<RequestMiddleware>();
 
 app.UseAuthorization();
 

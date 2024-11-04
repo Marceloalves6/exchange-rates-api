@@ -5,7 +5,7 @@ namespace ExchangeRates.Api.Application.Contracts;
 public class ServiceResponse<T>
 {
     [JsonPropertyName("id")]
-    public Guid Id { get; set; }
+    public string? Id { get; set; }
 
     [JsonPropertyName("processTime")]
     public ProcessTime ProcessTime { get; set; } = new();
@@ -17,7 +17,7 @@ public class ServiceResponse<T>
     public T? Result { get; set; }
 
     [JsonPropertyName("errors")]
-    public List<KeyValuePair<string, string>>? Errors { get; set; }
+    public Dictionary<string, string>? Errors { get; set; }
 }
 
 public class ProcessTime

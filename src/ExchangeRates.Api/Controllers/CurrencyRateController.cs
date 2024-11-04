@@ -7,7 +7,7 @@ namespace ExchangeRates.Api.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
-public class CurrencyRateController(IMediator mediator) : BaseApiController<CurrencyRateController>(mediator)
+public class CurrencyRateController(IMediator mediator, IHttpContextAccessor httpContextAccessor) : BaseApiController<CurrencyRateController>(mediator, httpContextAccessor)
 {
     [HttpPost]
     [Route("[action]")]
