@@ -1,22 +1,22 @@
-using ExchangeRates.Core.Operations;
+using ExchangeRates.Core.Commands;
 using FluentValidation;
 
 namespace ExchangeRates.Core.Validators;
 
-internal class AddExchangeRateResquestValidator : AbstractValidator<AddExchangeRateResquest>
+internal class AddExchangeRateResquestValidator : AbstractValidator<AddExchangeRateCommand>
 {
     public AddExchangeRateResquestValidator()
     {
-        RuleFor(i => i.CurrencyFrom)
+        RuleFor(i => i.AddExchangeRateRequest.CurrencyFrom)
             .NotEmpty();
 
-        RuleFor(i => i.CurrencyTo)
+        RuleFor(i => i.AddExchangeRateRequest.CurrencyTo)
            .NotEmpty();
 
-        RuleFor(i => i.PriceAsk)
+        RuleFor(i => i.AddExchangeRateRequest.AskPrice)
          .GreaterThan(0);
 
-        RuleFor(i => i.PriceBid)
+        RuleFor(i => i.AddExchangeRateRequest.BidPrice)
          .GreaterThan(0);
     }
 }

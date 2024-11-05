@@ -1,12 +1,12 @@
-﻿using ExchangeRates.Core.Operations;
+﻿using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using MediatR;
 
 namespace ExchangeRates.Core.Handlers;
 
-public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<DeleteExchangeRateRequest, Unit>
+public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<DeleteExchangeRateCommand, Unit>
 {
-    public async Task<Unit> Handle(DeleteExchangeRateRequest request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteExchangeRateCommand request, CancellationToken cancellationToken)
     {
         var exchageRate = await uow.ExchangeRepository.GetExternalById(request.ExternalId);
 
