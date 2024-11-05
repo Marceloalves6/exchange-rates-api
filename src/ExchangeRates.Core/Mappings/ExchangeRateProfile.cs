@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ExchangeRates.Core.Entities;
-using ExchangeRates.Core.Operations;
+using ExchangeRates.Core.Commands;
 
 namespace ExchangeRates.Core.Mappings;
 
@@ -8,7 +8,7 @@ public class ExchangeRateProfile : Profile
 {
     public ExchangeRateProfile()
     {
-        CreateMap<AddExchangeRateResquest, ExchangeRate>()
+        CreateMap<AddExchangeRateCommand, ExchangeRate>()
          .ForMember(dest => dest.ExternalId, src => src.MapFrom(i => Guid.NewGuid()))
          .ForMember(dest => dest.CreatedAt, src => src.MapFrom(i => DateTime.UtcNow));
 
@@ -21,5 +21,7 @@ public class ExchangeRateProfile : Profile
         CreateMap<ExchangeRate, UpdateExchangeRateResponse>()
            .ForMember(dest => dest.Id, src => src.Ignore())
            .ForMember(dest => dest.Id, src => src.MapFrom(i => i.ExternalId));
+
+        CreateMap<AddExchangeRateResponse, GetExchangeRateResponse>();
     }
 }
