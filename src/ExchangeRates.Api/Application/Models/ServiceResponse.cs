@@ -1,33 +1,33 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace ExchangeRates.Api.Application.Contracts;
 
 public class ServiceResponse<T>
 {
-    [JsonPropertyName("id")]
+    [JsonProperty("id")]
     public string? Id { get; set; }
 
-    [JsonPropertyName("processTime")]
+    [JsonProperty("processTime")]
     public ProcessTime ProcessTime { get; set; } = new();
 
-    [JsonPropertyName("success")]
+    [JsonProperty("success")]
     public bool Success { get; set; }
 
-    [JsonPropertyName("result")]
+    [JsonProperty("result")]
     public T? Result { get; set; }
 
-    [JsonPropertyName("errors")]
+    [JsonProperty("errors")]
     public Dictionary<string, string>? Errors { get; set; }
 }
 
 public class ProcessTime
 {
-    [JsonPropertyName("startRequest")]
+    [JsonProperty("startRequest")]
     public DateTime StartRequest { get; set; }
 
-    [JsonPropertyName("endRequest")]
+    [JsonProperty("endRequest")]
     public DateTime EndRequest { get; set; }
 
-    [JsonPropertyName("executionTimeMilliseconds")]
+    [JsonProperty("executionTimeMilliseconds")]
     public double ExecutionTimeMilliseconds { get; set; }
 }

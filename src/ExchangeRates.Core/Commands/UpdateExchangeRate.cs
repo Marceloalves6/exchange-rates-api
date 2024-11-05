@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace ExchangeRates.Core.Commands;
 
@@ -8,19 +8,19 @@ public record UpdateExchangeRateResquest(Guid Id, string CurrencyFrom, string Cu
 public record UpdateExchangeRateCommand(UpdateExchangeRateResquest UpdateExchangeRateResquest) : IRequest<UpdateExchangeRateResponse>;
 public record UpdateExchangeRateResponse
 {
-    [JsonPropertyName("id")]
+    [JsonProperty("id")]
     public Guid Id { get; init; }
 
-    [JsonPropertyName("currencyFrom")]
+    [JsonProperty("currencyFrom")]
     public required string CurrencyFrom { get; init; }
 
-    [JsonPropertyName("currencyTo")]
+    [JsonProperty("currencyTo")]
 
     public required string CurrencyTo { get; init; }
    
-    [JsonPropertyName("bidPrice")]
+    [JsonProperty("bidPrice")]
     public decimal BidPrice { get; init; }
 
-    [JsonPropertyName("askPrice")]
+    [JsonProperty("askPrice")]
     public decimal AskPrice { get; init; }
 }

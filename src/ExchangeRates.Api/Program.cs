@@ -4,6 +4,7 @@ using ExchangeRates.Core;
 using ExchangeRates.Core.Services;
 using ExchangeRates.Infra;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Refit;
 using Serilog;
 
@@ -21,14 +22,15 @@ var useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatab
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<HttpExceptionHandlerFilter>();
-});
+}).AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(ExchangeRates.Core.Startup));
 builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(ExchangeRates.Core.Startup).Assembly));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddRefitClient<IAlphavantageService>().ConfigureHttpClient(httpClient =>
+builder.Services.AddRefitClient<IAlphavantageService>(new RefitSettings(new NewtonsoftJsonContentSerializer())
+).ConfigureHttpClient(httpClient =>
 {
     httpClient.BaseAddress = new Uri(builder.Configuration.GetValue<string>("AlphavantageConfiguration:Url") ?? "");
 });

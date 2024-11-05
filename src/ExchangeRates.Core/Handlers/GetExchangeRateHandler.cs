@@ -7,7 +7,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExchangeRates.Core.Handlers;
 
-public class GetExchangeRateHandler(IUnitOfWork uow, IConfiguration configuration, IMapper mapper, IAlphavantageService alphavantageService, IMediator mediator) : IRequestHandler<GetExchangeRateCommand, GetExchangeRateResponse>
+public class GetExchangeRateHandler
+(
+    IUnitOfWork uow,
+    IConfiguration configuration,
+    IMapper mapper,
+    IAlphavantageService alphavantageService,
+    IMediator mediator
+) : IRequestHandler<GetExchangeRateCommand, GetExchangeRateResponse>
 {
     public async Task<GetExchangeRateResponse> Handle(GetExchangeRateCommand request, CancellationToken cancellationToken)
     {
@@ -37,8 +44,8 @@ public class GetExchangeRateHandler(IUnitOfWork uow, IConfiguration configuratio
 
         var request = new AddExchangeRateRequest(currencyFrom,
                                                  currencyTo,
-                                                 currencyExchangeRate.RealtimeCurrencyExchangeRate?.AskPrice ?? 0,
-                                                 currencyExchangeRate.RealtimeCurrencyExchangeRate?.AskPrice ?? 0);
+                                                 currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0,
+                                                 currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0);
 
          var response = await mediator.Send(new AddExchangeRateCommand(request));
 
