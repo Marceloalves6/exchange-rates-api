@@ -6,8 +6,8 @@ public record ExchangeRate : BaseEntity
 
     public string? CurrencyTo { get; set; }
 
-    public decimal PriceBid { get; set; }
+    public decimal BidPrice { get; set; }
 
-    public decimal PriceAsk { get; set; }
+    public decimal AskPrice { get; set; }
 }
 

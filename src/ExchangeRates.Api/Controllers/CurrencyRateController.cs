@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using ExchangeRates.Core.Operations;
+using ExchangeRates.Core.Commands;
 using ExchangeRates.Api.Application.Contracts;
 
 namespace ExchangeRates.Api.Controllers;
@@ -17,7 +17,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     public async Task<IActionResult> GetByCurrency(GetExchangeRateRequest request, CancellationToken cancellationToken)
     {
 
-        var response = await SendAsync(new GetExchangeRateRequest(request.CurrencyFrom, request.CurrencyTo), cancellationToken);
+        var response = await SendAsync(new GetExchangeRateCommand(request), cancellationToken);
 
         return Ok(response);
     }
@@ -25,13 +25,12 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
 
     [HttpPost]
     [Route("")]
-    [ProducesResponseType(typeof(ServiceResponse<AddExchangeRateResquest>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ServiceResponse<AddExchangeRateCommand>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Create([FromBody] AddExchangeRateResquest resquest, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] AddExchangeRateRequest resquest, CancellationToken cancellationToken)
     {
-
-        var response = await SendAsync(resquest, cancellationToken);
+        var response = await SendAsync(new AddExchangeRateCommand(resquest), cancellationToken);
 
         return Ok(response);
     }
@@ -43,7 +42,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateExchangeRateResquest resquest, CancellationToken cancellationToken)
     {
-        var response = await SendAsync(resquest, cancellationToken);
+        var response = await SendAsync(new UpdateExchangeRateCommand(resquest), cancellationToken);
 
         return Ok(response);
     }
@@ -55,7 +54,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Delete([FromRoute] Guid id, [FromQuery] bool? hardDelete,  CancellationToken cancellationToken)
     {
-        var response = await SendAsync(new DeleteExchangeRateRequest(id, hardDelete.GetValueOrDefault(false)), cancellationToken);
+        var response = await SendAsync(new DeleteExchangeRateCommand(id, hardDelete.GetValueOrDefault(false)), cancellationToken);
 
         return Ok(response);
     }
