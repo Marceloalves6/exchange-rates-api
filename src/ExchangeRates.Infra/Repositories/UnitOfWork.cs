@@ -1,8 +1,9 @@
 ﻿using ExchangeRates.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Infra.Repositories;
-
 internal class UnitOfWork: IUnitOfWork
 {
     private readonly DbContext _dbContext;

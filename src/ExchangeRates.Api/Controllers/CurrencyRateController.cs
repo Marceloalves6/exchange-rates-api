@@ -36,11 +36,11 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     }
 
     [HttpPut]
-    [Route("{id}")]
+    [Route("")]
     [ProducesResponseType(typeof(ServiceResponse<UpdateExchangeRateResquest>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ServiceResponse<NoResult>), StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateExchangeRateResquest resquest, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update([FromBody] UpdateExchangeRateResquest resquest, CancellationToken cancellationToken)
     {
         var response = await SendAsync(new UpdateExchangeRateCommand(resquest), cancellationToken);
 

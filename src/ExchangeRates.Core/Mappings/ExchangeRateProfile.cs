@@ -8,7 +8,7 @@ public class ExchangeRateProfile : Profile
 {
     public ExchangeRateProfile()
     {
-        CreateMap<AddExchangeRateCommand, ExchangeRate>()
+        CreateMap<AddExchangeRateRequest, ExchangeRate>()
          .ForMember(dest => dest.ExternalId, src => src.MapFrom(i => Guid.NewGuid()))
          .ForMember(dest => dest.CreatedAt, src => src.MapFrom(i => DateTime.UtcNow));
 
@@ -23,5 +23,6 @@ public class ExchangeRateProfile : Profile
            .ForMember(dest => dest.Id, src => src.MapFrom(i => i.ExternalId));
 
         CreateMap<AddExchangeRateResponse, GetExchangeRateResponse>();
+
     }
 }
