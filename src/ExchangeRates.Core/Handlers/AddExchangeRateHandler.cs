@@ -3,7 +3,9 @@ using ExchangeRates.Core.Entities;
 using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using MediatR;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
 internal class AddExchangeRateHandler(IUnitOfWork uow, IMapper mapper) : IRequestHandler<AddExchangeRateCommand, AddExchangeRateResponse>

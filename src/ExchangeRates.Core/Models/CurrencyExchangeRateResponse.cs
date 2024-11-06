@@ -23,7 +23,7 @@ public class RealtimeCurrencyExchangeRate
     public string? LastRefreshed { get; set; }
 
     [JsonProperty("7. Time Zone")]
-    public DateTime? TimeZone { get; set; }
+    public string? TimeZone { get; set; }
 
     [JsonProperty("8. Bid Price")]
     public decimal? BidPrice { get; set; }

@@ -1,7 +1,9 @@
 ﻿using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using MediatR;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
 public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<DeleteExchangeRateCommand, Unit>

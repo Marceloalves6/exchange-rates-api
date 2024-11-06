@@ -1,6 +1,8 @@
 using ExchangeRates.Core.Commands;
 using FluentValidation;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Validators;
 
 internal class AddExchangeRateResquestValidator : AbstractValidator<AddExchangeRateCommand>
