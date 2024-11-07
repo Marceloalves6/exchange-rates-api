@@ -114,4 +114,5 @@ This combination allows us to validate every single class that has a validation 
 This project has some limitations that can be addressed with additional work:
 
 - The API currently lacks protection and can be freely consumed. To resolve this, I recommend implementing an authentication/authorization method.
-- Logs are stored in text files. To improve this, I suggest using `Elasticsearch` to store logs..
+- Logs are stored in text files. To improve this, I suggest using `Elasticsearch` to store logs.
+- The `https://www.alphavantage.co` service doesn't provide exchange rates for all types of currency. Adding a second provider could make the application more consistent.
