@@ -21,5 +21,5 @@ public class ExchangeRatesDbContext(DbContextOptions<ExchangeRatesDbContext> opt
             .HasMaxLength(15);
     }
 
-    public DbSet<ExchangeRate> ExchangeRate {  get; set; }
+    public DbSet<ExchangeRate> ExchangeRate { get; set; }
 }

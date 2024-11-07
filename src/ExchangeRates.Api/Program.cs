@@ -4,9 +4,10 @@ using ExchangeRates.Core;
 using ExchangeRates.Core.Services;
 using ExchangeRates.Infra;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using Microsoft.OpenApi.Models;
 using Refit;
 using Serilog;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,27 @@ builder.Services.AddControllers(options =>
 }).AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo()
+    {
+        Title = "Exchange Rate API",
+        Version = "v1",
+        Description = "This application enables management of exchange rates.",
+        Contact = new OpenApiContact()
+        {
+            Name = "Marcelo A. Cordeiro",
+            Email = "marceloalves6@gmail.com",
+        }
+
+    });
+
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 builder.Services.AddAutoMapper(typeof(ExchangeRates.Core.Startup));
 builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(ExchangeRates.Core.Startup).Assembly));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -65,8 +86,16 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(u =>
+    {
+        u.RouteTemplate = "swagger/{documentName}/swagger.json";
+    });
+
+    app.UseSwaggerUI(c =>
+    {
+        c.RoutePrefix = "swagger";
+        c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Exchange Rate API");
+    });
 }
 
 app.UseHttpsRedirection();

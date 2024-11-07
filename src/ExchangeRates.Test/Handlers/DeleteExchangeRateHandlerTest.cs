@@ -7,7 +7,7 @@ using MediatR;
 
 namespace ExchangeRates.Test.Handlers;
 
-public class DeleteExchangeRateHandlerTest : BaseTest
+public class DeleteExchangeRateHandlerTest : TestBase
 {
 
     public DeleteExchangeRateHandlerTest() : base() { }
@@ -21,7 +21,7 @@ public class DeleteExchangeRateHandlerTest : BaseTest
         var command = new DeleteExchangeRateCommand(exchageRate.ExternalId, true);
 
         //when
-        var handler = new DeleteExchangeRateHandler(uow);
+        var handler = new DeleteExchangeRateHandler(uow, GetLoggerMocker<DeleteExchangeRateHandler>().Object);
         var result = await handler.Handle(command, default);
 
         //then
@@ -37,7 +37,7 @@ public class DeleteExchangeRateHandlerTest : BaseTest
         var command = new DeleteExchangeRateCommand(Guid.NewGuid(), true);
 
         //when
-        var handler = new DeleteExchangeRateHandler(uow);
+        var handler = new DeleteExchangeRateHandler(uow, GetLoggerMocker<DeleteExchangeRateHandler>().Object);
         var result = await Record.ExceptionAsync(() => handler.Handle(command, default));
 
         //then

@@ -4,12 +4,17 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Infra.Repositories;
-internal class UnitOfWork: IUnitOfWork
+internal class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext _dbContext;
 
-    public UnitOfWork(ExchangeRatesDbContext dbContext)
+    public UnitOfWork(ExchangeRatesDbContext? dbContext)
     {
+        if (dbContext is null)
+        {
+            throw new ArgumentNullException(nameof(dbContext));
+        }
+
         _dbContext = dbContext;
         ExchangeRepository = new ExchangeRepository(dbContext);
     }
@@ -23,5 +28,5 @@ internal class UnitOfWork: IUnitOfWork
         _dbContext.Dispose();
     }
 
-    public IExchangeRepository ExchangeRepository {  get; set; }
+    public IExchangeRepository ExchangeRepository { get; set; }
 }

@@ -2,12 +2,11 @@
 using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using MediatR;
-using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
-[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
-internal class UpdateExchangeRateHandler(IUnitOfWork uow, IMapper mapper) : IRequestHandler<UpdateExchangeRateCommand, UpdateExchangeRateResponse>
+public class UpdateExchangeRateHandler(IUnitOfWork uow, IMapper mapper, ILogger<UpdateExchangeRateHandler> logger) : IRequestHandler<UpdateExchangeRateCommand, UpdateExchangeRateResponse>
 {
     public async Task<UpdateExchangeRateResponse> Handle(UpdateExchangeRateCommand request, CancellationToken cancellationToken)
     {
@@ -29,6 +28,8 @@ internal class UpdateExchangeRateHandler(IUnitOfWork uow, IMapper mapper) : IReq
         await uow.CommitAsync(cancellationToken);
 
         var response = mapper.Map<UpdateExchangeRateResponse>(exchangeRate);
+
+        logger.LogInformation("Exchange rate updated");
 
         return response;
     }

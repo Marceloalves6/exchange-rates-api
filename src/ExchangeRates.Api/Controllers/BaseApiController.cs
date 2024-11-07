@@ -12,7 +12,7 @@ public class BaseApiController<TDerivedClass>(IMediator mediator, IHttpContextAc
         return await SendMessageAsync<IRequest<TResult>, TResult>(request, cancellationToken);
     }
 
-    private async Task<ServiceResponse<TResult>> SendMessageAsync<IRequest,TResult>(IRequest<TResult> request, CancellationToken cancellationToken)
+    private async Task<ServiceResponse<TResult>> SendMessageAsync<IRequest, TResult>(IRequest<TResult> request, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(request, cancellationToken);
 

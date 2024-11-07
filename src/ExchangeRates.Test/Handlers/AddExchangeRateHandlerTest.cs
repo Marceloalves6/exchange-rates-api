@@ -2,8 +2,7 @@
 using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Handlers;
 using ExchangeRates.Core.Mappings;
-using ExchangeRates.Core.Repositories;
-using ExchangeRates.Infra;
+using ExchangeRates.Core.Services;
 using ExchangeRates.Infra.Repositories;
 using FluentAssertions;
 using FluentAssertions.Common;
@@ -13,21 +12,18 @@ using Moq;
 
 namespace ExchangeRates.Test.Handlers;
 
-public class AddExchangeRateHandlerTest : BaseTest
+public class AddExchangeRateHandlerTest : TestBase
 {
-    public AddExchangeRateHandlerTest(): base()
-    {
-        
-    }
-
+    public AddExchangeRateHandlerTest() : base() { }
 
     [Fact]
-    public async Task  AddNewExchangeRateTest_ShouldBeOK()
+    public async Task AddNewExchangeRateTest_ShouldBeOK()
     {
         //given
         var request = new AddExchangeRateRequest("EUR", "USD", 0.91479000m, 0.91479000m);
         var command = new AddExchangeRateCommand(request);
         var uow = new UnitOfWork(dbContext);
+        var messageQueueService = new Mock<IMessageQueueService>();
       
         var mapper = new MapperConfiguration(cfg =>
         {
@@ -35,7 +31,7 @@ public class AddExchangeRateHandlerTest : BaseTest
         }).CreateMapper();
 
         //when
-        var handler = new  AddExchangeRateHandler(uow, mapper);
+        var handler = new AddExchangeRateHandler(uow, mapper, messageQueueService.Object, GetLoggerMocker<AddExchangeRateHandler>().Object);
         var result = await handler.Handle(command, default);
 
         //then
