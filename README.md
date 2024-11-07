@@ -54,4 +54,23 @@ queue, it will store the data in memory and log the message.
 
 ### Using docker to run the dependencies
 
+There are two ways to use Docker to run the Exchange Rates API:
+- Using Docker to run only the dependencies.
+- Using Docker to run Exchange Rates API and the dependecies.
 
+#### Using docker to run only the dependecies:
+**Steps:**
+- Download the source code into a folder of your choice.
+- Open the terminal and navigate to the Project folder `/deploy-partial`.
+- Now, execute the command `docker-compose up -d`. This will start the dependencies.
+- Open the project in Visual Studio 2022.
+- In the files `appsettings.Development.json` and `appsettings.json`, make sure the properties `MockExternalDependencies` is set as `false`
+- Run the project
+
+#### Using docker to run Exchange Rates API and the dependecies:
+**Steps:**
+ Download the source code into a folder of your choice.
+- Open the terminal and navigate to the  `/src` folder.
+- Now, run the command `Docker build . -t exchange-rates-api`, it will createa docker image of our project.
+- Go to the `/deploy` folder, and then execute the command `docker-compose up -d`
+- Open a browser of your choise and navegate to `http://localhost:5000/swagger/index.html`
