@@ -94,7 +94,7 @@ Using Docker, you can access dependencies like `PostgreSQL` and `RabbitMQ` to va
 - Exhange: `exchange-rate-api`
 - Queue: `exchange.rate.q.1`
 
-##  and Logging
+## Logging
 
 For logging it was used the package `serilog` that allows to register our logs in many different ways, but for this project 
 logs will stored in text files, the rolling Interval is configurated to generate a new log file every day.
