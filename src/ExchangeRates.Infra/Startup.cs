@@ -13,7 +13,8 @@ public static class Startup
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddSingleton<ICurrencyService, CurrencyService>();
-
+        // services.AddScoped<IMessageQueueService, MessageQueueService>();
+        services.AddScoped<IMessageQueueService, MockMessageQueueService>();
     }
 
     public static void ApplyMigrations(this IServiceCollection services)

@@ -2,22 +2,31 @@
 using ExchangeRates.Core.Entities;
 using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
+using ExchangeRates.Core.Services;
 using MediatR;
-using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
-[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
-internal class AddExchangeRateHandler(IUnitOfWork uow, IMapper mapper) : IRequestHandler<AddExchangeRateCommand, AddExchangeRateResponse>
+public class AddExchangeRateHandler
+(
+    IUnitOfWork uow,
+    IMapper mapper,
+    IMessageQueueService messageQueueService,
+    ILogger<AddExchangeRateHandler> logger
+) : IRequestHandler<AddExchangeRateCommand, AddExchangeRateResponse>
 {
-    private readonly IUnitOfWork _uow = uow;
 
     public async Task<AddExchangeRateResponse> Handle(AddExchangeRateCommand request, CancellationToken cancellationToken)
     {
         var exchangeRate = mapper.Map<ExchangeRate>(request.AddExchangeRateRequest);
-        var result = await _uow.ExchangeRepository.AddAsync(exchangeRate);
-        await _uow.CommitAsync(cancellationToken);
+        var result = await uow.ExchangeRepository.AddAsync(exchangeRate);
+        await uow.CommitAsync(cancellationToken);
         var response = mapper.Map<AddExchangeRateResponse>(result);
+
+        await messageQueueService.SendAsync(response);
+
+        logger.LogInformation("New exchange rate was added");
 
         return response;
     }

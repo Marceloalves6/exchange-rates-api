@@ -8,7 +8,15 @@ internal class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Ba
 {
     private readonly DbContext _dbContext;
 
-    public BaseRepository(DbContext dbContext) => _dbContext = dbContext;
+    public BaseRepository(DbContext? dbContext)
+    {
+        if (dbContext is null)
+        {
+            throw new ArgumentNullException(nameof(dbContext));
+        }
+
+        _dbContext = dbContext;
+    }
 
     public async Task<TEntity> AddAsync(TEntity entity)
     {

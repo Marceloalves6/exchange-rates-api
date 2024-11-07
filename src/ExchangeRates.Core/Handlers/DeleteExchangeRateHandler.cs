@@ -1,12 +1,15 @@
 ﻿using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using MediatR;
-using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
 
-[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
-public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<DeleteExchangeRateCommand, Unit>
+public class DeleteExchangeRateHandler
+(
+    IUnitOfWork uow,
+    ILogger<DeleteExchangeRateHandler> logger
+) : IRequestHandler<DeleteExchangeRateCommand, Unit>
 {
     public async Task<Unit> Handle(DeleteExchangeRateCommand request, CancellationToken cancellationToken)
     {
@@ -14,6 +17,8 @@ public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<Delete
 
         if (exchageRate is null)
         {
+            logger.LogError($"It was not possible to find a exchange rate with Id : {request.ExternalId}");
+
             throw new Exception("Record not found");
         }
 
@@ -27,6 +32,8 @@ public class DeleteExchangeRateHandler(IUnitOfWork uow) : IRequestHandler<Delete
         }
 
         await uow.CommitAsync(cancellationToken);
+
+        logger.LogInformation($"The exchange rate with id: {request.ExternalId} was deleted");
 
         return Unit.Value;
     }

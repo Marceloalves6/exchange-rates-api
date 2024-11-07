@@ -2,7 +2,7 @@
 
 namespace ExchangeRates.Core.Commands;
 
-public record GetExchangeRateRequest(string CurrencyFrom, string CurrencyTo);
+public record GetExchangeRateRequest(string? CurrencyFrom, string? CurrencyTo);
 public record GetExchangeRateCommand(GetExchangeRateRequest GetExchangeRateRequest) : IRequest<GetExchangeRateResponse>;
 
 public record GetExchangeRateResponse

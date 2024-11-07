@@ -18,5 +18,6 @@ public class CurrencyService : ICurrencyService
             Currencies = JsonSerializer.Deserialize<Dictionary<string, string>>(file) ?? new();
     }
 
-    public bool IsCurrencyValid(string iso) => Currencies?.ContainsKey(iso) ?? false;
+    public bool IsCurrencyValid(string? iso) => iso is null ? false : Currencies?.ContainsKey(iso) ?? false;
+   
 }

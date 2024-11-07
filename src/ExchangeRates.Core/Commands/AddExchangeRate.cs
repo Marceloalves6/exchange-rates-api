@@ -21,6 +21,6 @@ public record AddExchangeRateResponse
     public decimal BidPrice { get; init; }
     
     [JsonProperty("askPrice")]
-    public decimal AskPrice{ get; init; }
+    public decimal AskPrice { get; init; }
 }
 
