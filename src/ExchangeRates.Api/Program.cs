@@ -32,7 +32,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Exchange Rate API",
         Version = "v1",
-        Description = "This application allows to perform exchange rate management",
+        Description = "This application enables management of exchange rates.",
         Contact = new OpenApiContact()
         {
             Name = "Marcelo A. Cordeiro",

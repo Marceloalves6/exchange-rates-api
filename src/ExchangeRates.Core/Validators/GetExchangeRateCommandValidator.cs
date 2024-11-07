@@ -11,17 +11,23 @@ internal class GetExchangeRateCommandValidator : BaseValidator<GetExchangeRateCo
     public GetExchangeRateCommandValidator(ICurrencyService currencyService) : base(currencyService)
     {
         RuleFor(i => i.GetExchangeRateRequest.CurrencyFrom)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage("currencyFrom is required");
 
         RuleFor(i => i.GetExchangeRateRequest.CurrencyFrom)
            .Must((currencyFrom) => ValidadeCurrency(currencyFrom))
-           .WithMessage("{PropertyValue} is not a valid value for currencyFrom.");
+           .WithMessage("'{PropertyValue}' is not a valid value for currencyFrom.");
 
         RuleFor(i => i.GetExchangeRateRequest.CurrencyTo)
-            .NotEmpty();
+            .NotEmpty()
+             .WithMessage("currencyTo is required");
 
         RuleFor(i => i.GetExchangeRateRequest.CurrencyTo)
             .Must((currencyTo) => ValidadeCurrency(currencyTo))
-            .WithMessage("{PropertyValue} is not a valid value for currencyTo.");
+            .WithMessage("'{PropertyValue}' is not a valid value for currencyTo.");
+
+        RuleFor(i => i.GetExchangeRateRequest.CurrencyTo)
+          .NotEqual(i => i.GetExchangeRateRequest.CurrencyFrom)
+          .WithMessage("CurrencyFrom and CurrencyTo can not have the same value");
     }
 }

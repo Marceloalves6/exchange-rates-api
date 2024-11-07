@@ -2,5 +2,5 @@
 
 public interface ICurrencyService
 {
-    bool IsCurrencyValid(string iso);
+    bool IsCurrencyValid(string? iso);
 }
