@@ -2,8 +2,7 @@
 
 ## Introduction
 
-This application was developed using dotnet 8 and its main objective is to manage exchange rates through a REST API.
-The API provides 4 endpoints that allow its clients to perform CRUD (Create, Read, Update and Delete) operations.
+This application was developed using .NET 8, and its main objective is to manage exchange rates through a REST API. The API provides four endpoints that allow its clients to perform CRUD (Create, Read, Update, and Delete) operations.
 
 ## Solution
 
@@ -11,7 +10,7 @@ The application solution consists of 4 projects that will be detailed below:
 
 ### ExchangeRates.Api
 
-This is a Web API project and its main resposability is to prove a compoent that allows receive and response http requests.
+This is a Web API project, and its main responsibility is to provide a component that handles receiving and responding to HTTP requests.
 
 ### ExchangeRates.Core
 
@@ -47,7 +46,7 @@ There two ways to get the application running, one that uses database in memory 
 
 ### Database in memory and message queue mock.
 
-This is the quickest way to get the application running, just download the source code and open it with Visual Studio 2022, then run the project. As mentioned above, this strategy emulates 
+This is the quickest way to get the application running, just download the source code and open it with `Visual Studio 2022`, then run the project. As mentioned above, this strategy emulates 
 the external dependencies to make the process simpler. The database will store data in memory and the message queue service will be mocked. Every time a new message is received by the message
 queue, it will store the data in memory and log the message.
 
@@ -75,7 +74,7 @@ There are two ways to use Docker to run the Exchange Rates API:
 - Open a browser of your choise and navegate to `http://localhost:5000/swagger/index.html`
 
 #### Information:
-Using Docker, you can access dependencies like PostgreSQL and RabbitMQ to validate the data.
+Using Docker, you can access dependencies like `PostgreSQL` and `RabbitMQ` to validate the data.
 
 **PgAdmin**: 
 - Address: `http://localhost:5050/login?next=/`
