@@ -42,13 +42,16 @@ The list below shows some of the main packges used in the implemantaion:
 - Refit
 - Serilog
 - Swagger
-## Setting up and Running the application
+## Setup and Run the application
 
-There 2 ways to get the application running, one that makes use of in memory database and mock message queue, and the other one where we use docker to run the dependencies (Postgres and RabbiMQ).
+There two ways to get the application running, one that uses database in memory and mock message queue, and the other one where we use docker to run the dependencies (Postgres and RabbiMQ).
 
-### Database in memory and mock message queue
+### Database in memory and message queue mock.
 
-This is the quick way to get the application running: just download the source code and open it in Visual Studio 2022, then run the project.
+This is the quickest way to get the application running, just download the source code and open it with Visual Studio 2022, then run the project. As mentioned above, this strategy emulates 
+the external dependencies to make the process simpler. The database will store data in memory and the message queue service will be mocked. Every time a new message is received by the message
+queue, it will store the data in memory and log the message.
 
-As mentioned above, it uses strategies to emulate the external dependencies. The database will store data in memory and the message queue service
-will be mocked. Every time a new message is received by the message queue, it will store that in memory and the message data will be logged.
+### Using docker to run the dependencies
+
+
