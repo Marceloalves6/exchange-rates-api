@@ -74,3 +74,25 @@ There are two ways to use Docker to run the Exchange Rates API:
 - Now, run the command `Docker build . -t exchange-rates-api`, it will createa docker image of our project.
 - Go to the `/deploy` folder, and then execute the command `docker-compose up -d`
 - Open a browser of your choise and navegate to `http://localhost:5000/swagger/index.html`
+
+#### Information:
+Using Docker, you can access dependencies like PostgreSQL and RabbitMQ to validate the data.
+
+**PgAdmin**: 
+- Address: `http://localhost:5050/login?next=/`
+- Username: `admin@example.com`
+- Password: `admin`
+
+**Postgres**:
+- Database: `Exchange`
+- Username: `admin`
+- Password: `admin`
+
+**RabbitMQ**
+- Address: `http://localhost:15672`
+- Username: `guest`
+- Password: `guest`
+- Virtual Host: `/`
+- Exhange: `exchange-rate-api`
+- Queue: `exchange.rate.q.1`
+
