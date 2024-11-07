@@ -19,7 +19,7 @@ public class UpdateExchangeRateHandler(IUnitOfWork uow, IMapper mapper, ILogger<
 
         exchangeRate.CurrencyFrom = request.UpdateExchangeRateResquest.CurrencyFrom;
         exchangeRate.CurrencyTo = request.UpdateExchangeRateResquest.CurrencyTo;
-        exchangeRate.BidPrice = request.UpdateExchangeRateResquest.BidPrice;
+        exchangeRate.BidPrice = request.UpdateExchangeRateResquest.BidPrice; 
         exchangeRate.AskPrice = request.UpdateExchangeRateResquest.AskPrice;
         exchangeRate.UpdatedAt = DateTime.UtcNow;
 

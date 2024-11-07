@@ -8,8 +8,13 @@ internal class UnitOfWork : IUnitOfWork
 {
     private readonly DbContext _dbContext;
 
-    public UnitOfWork(ExchangeRatesDbContext dbContext)
+    public UnitOfWork(ExchangeRatesDbContext? dbContext)
     {
+        if (dbContext is null)
+        {
+            throw new ArgumentNullException(nameof(dbContext));
+        }
+
         _dbContext = dbContext;
         ExchangeRepository = new ExchangeRepository(dbContext);
     }

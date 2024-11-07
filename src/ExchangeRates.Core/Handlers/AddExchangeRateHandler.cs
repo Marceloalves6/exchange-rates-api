@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Entities;
+using ExchangeRates.Core.Commands;
 using ExchangeRates.Core.Repositories;
 using ExchangeRates.Core.Services;
 using MediatR;
@@ -16,6 +16,7 @@ public class AddExchangeRateHandler
     ILogger<AddExchangeRateHandler> logger
 ) : IRequestHandler<AddExchangeRateCommand, AddExchangeRateResponse>
 {
+
     public async Task<AddExchangeRateResponse> Handle(AddExchangeRateCommand request, CancellationToken cancellationToken)
     {
         var exchangeRate = mapper.Map<ExchangeRate>(request.AddExchangeRateRequest);

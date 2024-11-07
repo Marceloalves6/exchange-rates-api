@@ -18,7 +18,7 @@ public class BaseApiController<TDerivedClass>(IMediator mediator, IHttpContextAc
 
         var startRequest = (DateTime?)httpContextAccessor?.HttpContext?.Items[HttpContextVariables.RequestStartedAt];
         var endRequest = DateTime.Now;
-
+        
         return new ServiceResponse<TResult>
         {
             Id = httpContextAccessor?.HttpContext?.Items[HttpContextVariables.RequestId]?.ToString(),

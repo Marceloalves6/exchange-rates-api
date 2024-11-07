@@ -24,7 +24,7 @@ public class AddExchangeRateResquestValidatorTest
 
         //when
         var result = await validator.ValidateAsync(command);
-
+        
         //then
         result.IsValid.Should().BeTrue();
     }

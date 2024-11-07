@@ -1,8 +1,7 @@
-﻿using ExchangeRates.Api.Application.Contracts;
-using ExchangeRates.Core.Commands;
+﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
+using ExchangeRates.Core.Commands;
+using ExchangeRates.Api.Application.Contracts;
 
 namespace ExchangeRates.Api.Controllers;
 /// <summary>
@@ -276,6 +275,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     /// </summary>
     /// <param name="id">Exchange rate id</param>
     /// <param name="hardDelete">Indicates it must perform a hard or soft delete</param>
+    /// <param name="cancellationToken"></param>
     /// <returns>An object that indicates if the operation was successfully executed</returns>
     [HttpDelete]
     [Route("{id}")]

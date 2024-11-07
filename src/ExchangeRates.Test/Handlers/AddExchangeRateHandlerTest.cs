@@ -5,6 +5,9 @@ using ExchangeRates.Core.Mappings;
 using ExchangeRates.Core.Services;
 using ExchangeRates.Infra.Repositories;
 using FluentAssertions;
+using FluentAssertions.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 namespace ExchangeRates.Test.Handlers;
@@ -21,7 +24,7 @@ public class AddExchangeRateHandlerTest : TestBase
         var command = new AddExchangeRateCommand(request);
         var uow = new UnitOfWork(dbContext);
         var messageQueueService = new Mock<IMessageQueueService>();
-
+      
         var mapper = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile(new ExchangeRateProfile());
