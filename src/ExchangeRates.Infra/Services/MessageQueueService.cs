@@ -11,8 +11,6 @@ namespace ExchangeRates.Infra.Services;
 
 public class MessageQueueService(ILogger<MessageQueueService> logger, IConfiguration configuration) : IMessageQueueService
 {
-    private readonly ILogger<MessageQueueService> _logger;
-
     public async Task SendAsync<T>(T message) where T : class
     {
 

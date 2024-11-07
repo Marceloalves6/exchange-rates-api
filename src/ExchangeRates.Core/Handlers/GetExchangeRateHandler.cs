@@ -31,7 +31,7 @@ public class GetExchangeRateHandler
                                 for {request.GetExchangeRateRequest.CurrencyFrom}/{request.GetExchangeRateRequest.CurrencyTo}.
                                 Consulting Alphavantage API to check for the information.");
 
-            return await GetExchangeRateFromExternalProvider(request.GetExchangeRateRequest.CurrencyFrom, request.GetExchangeRateRequest.CurrencyTo);
+            return await GetExchangeRateFromExternalProvider(request.GetExchangeRateRequest.CurrencyFrom ?? "", request.GetExchangeRateRequest.CurrencyTo ?? "");
         }
 
         var response = mapper.Map<GetExchangeRateResponse>(exchage);
@@ -66,7 +66,7 @@ public class GetExchangeRateHandler
                                                  currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0,
                                                  currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0);
 
-        var response = await mediator.Send(new AddExchangeRateCommand(request));
+         var response = await mediator.Send(new AddExchangeRateCommand(request));
 
         return mapper.Map<GetExchangeRateResponse>(response);
     }
