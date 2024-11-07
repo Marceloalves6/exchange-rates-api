@@ -96,3 +96,19 @@ Using Docker, you can access dependencies like PostgreSQL and RabbitMQ to valida
 - Exhange: `exchange-rate-api`
 - Queue: `exchange.rate.q.1`
 
+##  and Logging
+
+For logging it was used the package `serilog` that allows to register our logs in many different ways, but for this project 
+logs will stored in text files, the rolling Interval is configurated to generate a new log file every day.
+
+## Error handling
+
+For error handling it was create a filter (`HttpExceptionHandlerFilter.cs`) in the API project that allows to
+handler all exception in only one place.
+
+## Validation
+
+To validate the input data received in our API, we used the `FluentValidation` package combined with `MediatR` behavior (`ValidatorBehavior.cs`). 
+This combination allows us to validate every single class that has a validation implemented before the request hits the command handler.   
+
+##Limitations
