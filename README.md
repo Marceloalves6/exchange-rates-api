@@ -21,16 +21,15 @@ It is important to highlight that this project remains completely agnostic to da
 
 ### ExchangeRates.Infra
 
-The core resposability of this project is to provide comunication with with databases, message queues and external services. Unlike the **ExchangeRates.Core**;
-this project keeps the implementation necessary.
+The core responsibility of this project is to provide communication with databases, message queues, and external services. Unlike `ExchangeRates.Core`, this project includes the necessary implementations.
 
 ### ExchangeRates.Test
 
-This project is where the **Unit Tests** are created
+This project is where unit tests are created.
 
 ## Packages
 
-The list below shows some of the main packges used in the implemantaion:
+The list below shows some of the main packages used in the implementation:
 - AutoMapper
 - Entity Framework
 - FluentValidation
@@ -111,4 +110,9 @@ handler all exception in only one place.
 To validate the input data received in our API, we used the `FluentValidation` package combined with `MediatR` behavior (`ValidatorBehavior.cs`). 
 This combination allows us to validate every single class that has a validation implemented before the request hits the command handler.   
 
-##Limitations
+## Limitations
+
+This project has some limitations that can be addressed with additional work:
+
+- The API currently lacks protection and can be freely consumed. To resolve this, I recommend implementing an authentication/authorization method.
+- Logs are stored in text files. To improve this, I suggest using `Elasticsearch` to store logs..
