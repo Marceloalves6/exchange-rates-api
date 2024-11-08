@@ -50,6 +50,8 @@ This is the quickest way to get the application running, just download the sourc
 the external dependencies to make the process simpler. The database will store data in memory and the message queue service will be mocked. Every time a new message is received by the message
 queue, it will store the data in memory and log the message.
 
+**Note**: Ensure that the `"MockExternalDependencies"` property in both `appsettings.Development.json` and `appsettings.json` files is set to `true`.
+
 ### Using docker to run the dependencies
 
 There are two ways to use Docker to run the Exchange Rates API:
@@ -82,7 +84,7 @@ Using Docker, you can access dependencies like `PostgreSQL` and `RabbitMQ` to va
 - Password: `admin`
 
 **Postgres**:
-- Database: `Exchange`
+- Database: `ExchangeDB`
 - Username: `admin`
 - Password: `admin`
 
