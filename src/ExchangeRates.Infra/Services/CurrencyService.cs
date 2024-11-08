@@ -19,5 +19,5 @@ public class CurrencyService : ICurrencyService
     }
 
     public bool IsCurrencyValid(string? iso) => iso is null ? false : Currencies?.ContainsKey(iso) ?? false;
-   
+
 }

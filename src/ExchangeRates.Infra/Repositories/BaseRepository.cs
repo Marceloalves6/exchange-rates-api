@@ -32,9 +32,9 @@ internal class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : Ba
         return Task.CompletedTask;
     }
 
-    public Task<TEntity?> GetExternalById(Guid externalId)
+    public Task<TEntity?> GetExternalById(Guid externalId, bool includeDeleted = false)
     {
-        return _dbContext.Set<TEntity>().FirstOrDefaultAsync(i => i.ExternalId == externalId);
+        return _dbContext.Set<TEntity>().FirstOrDefaultAsync(i => i.ExternalId == externalId && i.Deleted == includeDeleted);
     }
 
     public Task UpdateAsync(TEntity entity)

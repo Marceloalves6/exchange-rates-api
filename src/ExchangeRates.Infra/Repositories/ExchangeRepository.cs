@@ -1,7 +1,6 @@
 ﻿using ExchangeRates.Core.Entities;
 using ExchangeRates.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ExchangeRates.Infra.Repositories;
 
@@ -17,9 +16,9 @@ internal class ExchangeRepository : BaseRepository<ExchangeRate>, IExchangeRepos
 
         _dbContext = dbContext;
     }
-    public Task<ExchangeRate?> GetAsync(string? currencyFrom, string? currencyTo)
+    public Task<ExchangeRate?> GetAsync(string? currencyFrom, string? currencyTo, bool includeDeleted = false)
     {
-        var exchangeRate = _dbContext?.Set<ExchangeRate>().FirstOrDefault(i => i.CurrencyFrom == currencyFrom && i.CurrencyTo == currencyTo);
+        var exchangeRate = _dbContext?.Set<ExchangeRate>().FirstOrDefault(i => i.CurrencyFrom == currencyFrom && i.CurrencyTo == currencyTo && i.Deleted == includeDeleted);
 
         return Task.FromResult(exchangeRate);
     }
