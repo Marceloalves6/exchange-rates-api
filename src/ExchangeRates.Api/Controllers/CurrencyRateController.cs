@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MediatR;
+﻿using ExchangeRates.Api.Application.Contracts;
 using ExchangeRates.Core.Commands;
-using ExchangeRates.Api.Application.Contracts;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExchangeRates.Api.Controllers;
 /// <summary>
@@ -20,8 +20,8 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     /// <param name="cancellationToken"></param>
     /// <returns>An object containing the information about the exechange rate</returns>
     /// <remarks>
-    /// In order to obtain the exchange rate of a currency pair, it is necessary to provide the ISO code corresponding to the given currencies.
-    /// Here is a list of currencies ISO code:
+    /// To obtain the exchange rate for a currency pair, you need to provide the ISO codes for the respective currencies.
+    /// Below is a list of currency ISO codes:
     /// 
     ///  AED - United Arab Emirates Dirham, 
     ///  AFN - Afghan Afghani, 
@@ -183,7 +183,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     ///  
     /// Example:
     ///
-    ///     POST api/v1/CurrencyRate/GetExchangeRate
+    ///     POST api/v1/CurrencyRate
     ///     {
     ///        "currencyFrom": "EUR",
     ///        "currencyTo": "USD"
@@ -199,7 +199,7 @@ public class CurrencyRateController(IMediator mediator, IHttpContextAccessor htt
     public async Task<IActionResult> GetExchangeRate([FromQuery] string? currencyFrom, [FromQuery] string? currencyTo, CancellationToken cancellationToken)
     {
 
-        var response = await SendAsync(new GetExchangeRateCommand(new (currencyFrom, currencyTo)), cancellationToken);
+        var response = await SendAsync(new GetExchangeRateCommand(new(currencyFrom, currencyTo)), cancellationToken);
 
         return Ok(response);
     }

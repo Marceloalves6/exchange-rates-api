@@ -10,6 +10,7 @@ public class ExchangeRateProfile : Profile
     {
         CreateMap<AddExchangeRateRequest, ExchangeRate>()
          .ForMember(dest => dest.ExternalId, src => src.MapFrom(i => Guid.NewGuid()))
+         .ForMember(dest => dest.Deleted, src => src.MapFrom(i => false))
          .ForMember(dest => dest.CreatedAt, src => src.MapFrom(i => DateTime.UtcNow));
 
         CreateMap<ExchangeRate, AddExchangeRateResponse>()

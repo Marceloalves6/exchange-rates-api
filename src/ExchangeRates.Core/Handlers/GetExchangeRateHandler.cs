@@ -5,9 +5,7 @@ using ExchangeRates.Core.Services;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("ExchangeRates.Test")]
 namespace ExchangeRates.Core.Handlers;
 
 public class GetExchangeRateHandler
@@ -66,7 +64,7 @@ public class GetExchangeRateHandler
                                                  currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0,
                                                  currencyExchangeRate?.RealtimeCurrencyExchangeRate?.AskPrice ?? 0);
 
-         var response = await mediator.Send(new AddExchangeRateCommand(request));
+        var response = await mediator.Send(new AddExchangeRateCommand(request));
 
         return mapper.Map<GetExchangeRateResponse>(response);
     }
