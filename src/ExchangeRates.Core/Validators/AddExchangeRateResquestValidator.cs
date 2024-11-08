@@ -26,7 +26,7 @@ internal class AddExchangeRateResquestValidator : BaseValidator<AddExchangeRateC
           .WithMessage("{PropertyValue} is not a valid value for currencyTo.");
 
         RuleFor(i => i.AddExchangeRateRequest.CurrencyTo)
-         .NotEqual(i=> i.AddExchangeRateRequest.CurrencyFrom)
+         .NotEqual(i => i.AddExchangeRateRequest.CurrencyFrom)
          .WithMessage("CurrencyFrom and CurrencyTo can not have the same value");
 
         RuleFor(i => i.AddExchangeRateRequest.AskPrice)

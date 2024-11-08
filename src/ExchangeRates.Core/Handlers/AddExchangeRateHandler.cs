@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ExchangeRates.Core.Entities;
 using ExchangeRates.Core.Commands;
+using ExchangeRates.Core.Entities;
 using ExchangeRates.Core.Repositories;
 using ExchangeRates.Core.Services;
 using MediatR;

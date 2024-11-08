@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ExchangeRates.Api/ExchangeRates.Api.csproj", "ExchangeRates.Api/"]
+COPY ["ExchangeRates.Core/ExchangeRates.Core.csproj", "ExchangeRates.Core/"]
+COPY ["ExchangeRates.Infra/ExchangeRates.Infra.csproj", "ExchangeRates.Infra/"]
 RUN dotnet restore "./ExchangeRates.Api/ExchangeRates.Api.csproj"
 COPY . .
 WORKDIR "/src/ExchangeRates.Api"
