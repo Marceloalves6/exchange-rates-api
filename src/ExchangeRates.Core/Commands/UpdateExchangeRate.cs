@@ -17,7 +17,7 @@ public record UpdateExchangeRateResponse
     [JsonProperty("currencyTo")]
 
     public required string CurrencyTo { get; init; }
-   
+
     [JsonProperty("bidPrice")]
     public decimal BidPrice { get; init; }
 

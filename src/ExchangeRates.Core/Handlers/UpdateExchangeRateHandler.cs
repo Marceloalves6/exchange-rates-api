@@ -12,14 +12,14 @@ public class UpdateExchangeRateHandler(IUnitOfWork uow, IMapper mapper, ILogger<
     {
         var exchangeRate = await uow.ExchangeRepository.GetExternalById(request.UpdateExchangeRateResquest.Id);
 
-        if (exchangeRate is null)
+        if (exchangeRate is null || exchangeRate.Deleted)
         {
             throw new Exception("Record not found");
         }
 
         exchangeRate.CurrencyFrom = request.UpdateExchangeRateResquest.CurrencyFrom;
         exchangeRate.CurrencyTo = request.UpdateExchangeRateResquest.CurrencyTo;
-        exchangeRate.BidPrice = request.UpdateExchangeRateResquest.BidPrice; 
+        exchangeRate.BidPrice = request.UpdateExchangeRateResquest.BidPrice;
         exchangeRate.AskPrice = request.UpdateExchangeRateResquest.AskPrice;
         exchangeRate.UpdatedAt = DateTime.UtcNow;
 

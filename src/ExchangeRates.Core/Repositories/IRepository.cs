@@ -10,5 +10,5 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 
     Task UpdateAsync(TEntity entity);
 
-    Task<TEntity?> GetExternalById(Guid externalId);
+    Task<TEntity?> GetExternalById(Guid externalId, bool includeDeleted = false);
 }

@@ -48,7 +48,7 @@ public class GetExchangeRateHandlerTest : TestBase
         var request = new GetExchangeRateRequest(currencyFrom, currencyTo);
         var command = new GetExchangeRateCommand(request);
 
-        var result = await Record.ExceptionAsync(()=> handler.Handle(command, default));
+        var result = await Record.ExceptionAsync(() => handler.Handle(command, default));
 
         result.Should().BeNull();
     }

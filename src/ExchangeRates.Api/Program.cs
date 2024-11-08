@@ -17,7 +17,7 @@ builder.Services.AddSerilog((services, loggerConfiguration) => loggerConfigurati
     .Enrich.FromLogContext()
     .WriteTo.Console());
 
-var useInMemoryDatabase = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");
+var mockExternalDependencies = builder.Configuration.GetValue<bool>("MockExternalDependencies");
 
 // Add services to the container.
 builder.Services.AddControllers(options =>
@@ -58,7 +58,7 @@ builder.Services.AddRefitClient<IAlphavantageService>(new RefitSettings(new Newt
 
 builder.Services.AddDbContext<ExchangeRatesDbContext>(options =>
 {
-    if (useInMemoryDatabase)
+    if (mockExternalDependencies)
     {
         options.UseInMemoryDatabase("ExchangeDB");
     }
@@ -68,13 +68,13 @@ builder.Services.AddDbContext<ExchangeRatesDbContext>(options =>
     }
 });
 
-builder.Services.AddInfraDependencies();
+builder.Services.AddInfraDependencies(builder.Configuration);
 builder.Services.AddCoreDependencies();
 
 
 
 // When in memory database is enabled, it doesn't execute migrations once it is not necessary to update databse structure
-if (!useInMemoryDatabase)
+if (!mockExternalDependencies)
 {
     builder.Services.ApplyMigrations();
 }
@@ -84,7 +84,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-if (app.Environment.IsDevelopment())
+if (builder.Configuration.GetValue<bool>("SwaggerOn"))
 {
     app.UseSwagger(u =>
     {

@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  exchange-rates-api:
+    image: exchange-rates-api
+    depends_on:
+      - postgres
+    environment:
+      - SwaggerOn=true
+      - MockExternalDependencies=false
+      - RabbitMQConfiguration:Host=rabbitmq
+      - RabbitMQConfiguration:Port=5672
+      - RabbitMQConfiguration:Username=guest
+      - RabbitMQConfiguration:Password=guest
+      - RabbitMQConfiguration:Queue=exchange.rate.q.1
+      - RabbitMQConfiguration:Exchange=exchange-rate-api
+      - RabbitMQConfiguration:RoutingKey=exchange-rate
+      - AlphavantageConfiguration:Url=https://www.alphavantage.co
+      - AlphavantageConfiguration:Function=CURRENCY_EXCHANGE_RATE
+      - AlphavantageConfiguration:ApiKey=U23W00043X08VE9U
+      - ConnectionStrings:ExchangeDB=Host=postgres;Database=Exchange;Username=admin;Password=admin
+      - Serilog:Using:0=Serilog.Sinks.Console
+      - Serilog:Using:1=Serilog.Sinks.File
+      - Serilog:MinimumLevel=Information
+      - Serilog:WriteTo:0:Name=Console
+      - Serilog:WriteTo:1:Name=File
+      - Serilog:WriteTo:1:Args:path=logs/v1/log.txt
+      - Serilog:WriteTo:1:Args:rollingInterval=Day
+      - Serilog:Enrich:0=FromLogContext
+      - Serilog:Enrich:1=WithMachineName
+      - Serilog:Properties:ApplicationName=ExchangeRates.Api
+    ports:
+      - "5000:8080"
+    volumes:
+      - exchange_rates_api_data:/app/logs
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: Exchange
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  postgres_data:
+  exchange_rates_api_data:

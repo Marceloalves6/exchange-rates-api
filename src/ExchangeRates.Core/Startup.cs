@@ -1,6 +1,6 @@
 using ExchangeRates.Core.Behaviors;
-using MediatR;
 using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeRates.Core;

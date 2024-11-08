@@ -5,7 +5,6 @@ using ExchangeRates.Core.Repositories;
 using ExchangeRates.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Moq;
 
 namespace ExchangeRates.Test.Handlers;
 

@@ -1,6 +1,5 @@
 ﻿using ExchangeRates.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace ExchangeRates.Infra;
 
